@@ -44,7 +44,7 @@
                                     </li>
                                 <?php elseif (($this->session->userdata('username')) and ($this->session->userdata('role') == 'administrator')) : ?>
                                     <li class="nav-item">
-                                        <a class="btn btn-outline-warning mr-3" href="<?= base_url('admin/index') ?>">Admin Page</a>
+                                        <a class="btn btn-outline-warning mr-3" href="<?= base_url('dashboard/mobil') ?>">Admin Page</a>
                                     </li>
                                 <?php endif; ?>
                                 <!-- Jika sudah login munculkan button logout, jika belum munculkan button login -->

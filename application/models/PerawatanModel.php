@@ -2,9 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MobilModel extends CI_Model {
+class PerawatanModel extends CI_Model {
 
-	public $table = 'mobil';
+	public $table = 'perawatan';
 
     function __construct()
     {
@@ -50,39 +50,30 @@ class MobilModel extends CI_Model {
 		return $delete;
 	}
 
-	public function relationMerk($id)
+	public function relationJenisPerawatan($id)
 	{
 		
 		$this->db->where('id', $id);
-		$query = $this->db->get('merk');
+		$query = $this->db->get('jenis_perawatan');
+		$data = $query->row();
+
+		return $data;
+
+	}
+	public function relationMobil($id)
+	{
+		
+		$this->db->where('id', $id);
+		$query = $this->db->get('mobil');
 		$data = $query->row();
 
 		return $data;
 
 	}
 
-	public function get_all_data()
-    {
-        $query = $this->db->get($this->table);
-
-        return $query->result();
-    }
-
-    public function get_by_id($id)
-    {
-        $query = $this->db->get_where($this->table, ['id' => $id]);
-        return $query->row();
-    }
-
-    public function get_by_merk_id($merk_id)
-    {
-        $query = $this->db->get_where($this->table, ['merk_id' => $merk_id]);
-        return $query->result();
-    }
-
 }
 
-/* End of file MobilModel.php */
+/* End of file PerawatanModel.php */
 
 
 ?>

@@ -13,7 +13,7 @@ class JenisPerawatan extends CI_Controller {
 
 		$this->load->model('AuthModel');
 		if(!$this->AuthModel->current_user()){
-			redirect('auth/login');
+			redirect('auth');
 		}
 	}
 

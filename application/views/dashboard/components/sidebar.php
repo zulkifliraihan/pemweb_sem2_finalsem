@@ -23,7 +23,7 @@
     <!-- Brand Logo -->
     <a href="<?= base_url('assets/dashboard') ?>//index3.html" class="brand-link">
       <img src="<?= base_url('assets/dashboard') ?>//dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Dashboard Admin</span>
     </a>
 
     <!-- Sidebar -->
@@ -34,7 +34,7 @@
           <img src="<?= base_url('assets/dashboard') ?>//dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><?= $this->session->userdata('username') ?></a>
         </div>
       </div>
 
@@ -57,18 +57,42 @@
                with font-awesome or any other icon font library -->
           
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-			<i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="<?= site_url('dashboard/user') ?>" class="nav-link">
+							<i class="nav-icon fas fa-user"></i>
               <p>
-                Dashboard
+                Users Management
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
+            <a href="<?= site_url('dashboard/mobil') ?>" class="nav-link">
+							<i class="nav-icon fas fa-book"></i>
+							<p>
+                Mobil Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= site_url('dashboard/merk') ?>" class="nav-link">
+							<i class="nav-icon fas fa-book"></i>
+							<p>
+                Merk Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= site_url('dashboard/jenisperawatan') ?>" class="nav-link">
+							<i class="nav-icon fas fa-book"></i>
+							<p>
+                Jenis Perawatan Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= site_url('dashboard/perawatan') ?>" class="nav-link">
+							<i class="nav-icon fas fa-book"></i>
+							<p>
+                Perawatan Management
               </p>
             </a>
           </li>
