@@ -10,6 +10,11 @@ class Merk extends CI_Controller {
 		parent::__construct();
 		$this->load->library(['form_validation']);
 		$this->load->model('MerkModel');
+
+		$this->load->model('AuthModel');
+		if(!$this->AuthModel->current_user()){
+			redirect('auth/login');
+		}
 	}
 
 	public function index()

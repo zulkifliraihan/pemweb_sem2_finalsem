@@ -10,6 +10,11 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->library(['form_validation']);
 		$this->load->model('UserModel');
+
+		$this->load->model('AuthModel');
+		if(!$this->AuthModel->current_user()){
+			redirect('auth/login');
+		}
 	}
 
 	public function index()
@@ -48,6 +53,9 @@ class User extends CI_Controller {
 			'email' => $this->input->post('email'),
 			'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
 			'role' => $this->input->post('role'),
+			'status' => 1,
+			'created_at' => date('Y-m-d H:i:s'),
+			'last_login' => date('Y-m-d H:i:s')
 		];
 
 		$this->UserModel->store($data);

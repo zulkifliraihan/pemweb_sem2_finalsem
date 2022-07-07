@@ -10,11 +10,41 @@ class Mobil extends CI_Controller {
 		parent::__construct();
 		$this->load->library(['form_validation']);
 		$this->load->model('MobilModel');
+		$this->load->model('MerkModel');
+
+		$this->load->model('AuthModel');
+		if(!$this->AuthModel->current_user()){
+			redirect('auth/login');
+		}
 	}
 
 	public function index()
 	{
-		$this->data['mobil'] = $this->MobilModel->getData();
+		$mobil = $this->MobilModel->getData();
+		$merks = $this->MerkModel->getData();
+		$data = [];
+		foreach ($mobil as $value) {
+			$merk = $this->MobilModel->relationMerk($value->merk_id);
+
+			$item = [];
+			$item['id'] = $value->id;
+			$item['merk_id'] = $value->merk_id;
+			$item['merk'] = $merk->nama;
+			$item['produk'] = $merk->produk;
+			$item['nopol'] = $value->nopol;
+			$item['warna'] = $value->warna;
+			$item['biaya_sewa'] = number_format($value->biaya_sewa,0, ',', '.');
+			$item['cc'] = $value->cc;
+			$item['tahun'] = $value->tahun;
+
+			array_push($data, $item);
+
+		}
+
+	
+		$this->data['data'] = $data;
+		$this->data['merks'] = $merks;
+
 		
 		$this->load->view('dashboard/admin/mobil/index', $this->data);
 	}
@@ -28,7 +58,7 @@ class Mobil extends CI_Controller {
 		$this->form_validation->set_rules('cc', 'Cc', 'required');
 		$this->form_validation->set_rules('tahun', 'Tahun', 'required');
 		$this->form_validation->set_rules('merk_id', 'Merk_id', 'required');
-		$this->form_validation->set_rules('foto', 'Foto', 'required');
+		// $this->form_validation->set_rules('foto', 'Foto', 'required');
 
 		if ($this->form_validation->run()  == false) {
 			$response = [
@@ -46,34 +76,84 @@ class Mobil extends CI_Controller {
 			->set_status_header(400)
 			->set_output(json_encode($response));
 		} 
-			
-		$data = [
-			'nopol' => $this->input->post('nopol'),
-			'warna' => $this->input->post('warna'),
-			'biaya_sewa' => $this->input->post('biaya_sewa'),
-			'deskripsi' => $this->input->post('deskripsi'),
-			'cc' => $this->input->post('cc'),
-			'tahun' => $this->input->post('tahun'),
-			'merk_id' => $this->input->post('merk_id'),
-			'foto' => $this->input->post('foto'),
-		];
-
-		$this->MobilModel->store($data);
-
-		$response = [
-			'status' => 200,
-			'response' => 'success',
-			'success' => true,
-			'error' => false,
-			'data' => null,
-			'success_message' => "Berhasil Membuat Mobil Baru",
-			'error_message' => null
-		];
 		
-		return $this->output
-		->set_content_type('application/json')
-		->set_status_header(200)
-		->set_output(json_encode($response));
+		$filename= $_FILES["foto"];
+		$file_ext = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
+		
+		if ($filename['name'] != null) {
+
+			// $file_ext = pathinfo($filename,PATHINFO_EXTENSION);
+			$config['upload_path']          = './assets/public/dashboard/mobil/';
+			$config['allowed_types']        = 'gif|jpg|jpeg|png';
+			$config['encrypt_name'] = TRUE;
+			
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('foto')) {
+				// saat gagal, tampilkan pesan erro
+				$response = [
+					'status' => 400,
+					'response' => 'fail',
+					'success' => false,
+					'error' => true,
+					'data' => null,
+					'success_message' => null,
+					'error_message' => $this->upload->display_errors()
+				];
+				
+				return $this->output
+				->set_content_type('application/json')
+				->set_status_header(400)
+				->set_output(json_encode($response));
+			} 
+			else {
+				// saat berhasil ambil datanya 
+				$uploaded_data = $this->upload->data('file_name');
+				$data = [
+					'nopol' => $this->input->post('nopol'),
+					'warna' => $this->input->post('warna'),
+					'biaya_sewa' => $this->input->post('biaya_sewa'),
+					'deskripsi' => $this->input->post('deskripsi'),
+					'cc' => $this->input->post('cc'),
+					'tahun' => $this->input->post('tahun'),
+					'merk_id' => $this->input->post('merk_id'),
+					'foto' =>  $uploaded_data,
+				];
+
+				$this->MobilModel->store($data);
+		
+				$response = [
+					'status' => 200,
+					'response' => 'success',
+					'success' => true,
+					'error' => false,
+					'data' => null,
+					'success_message' => "Berhasil Membuat Mobil Baru",
+					'error_message' => null
+				];
+				
+				return $this->output
+				->set_content_type('application/json')
+				->set_status_header(200)
+				->set_output(json_encode($response));
+			}
+		}
+		else {
+			$response = [
+				'status' => 400,
+				'response' => 'fail',
+				'success' => false,
+				'error' => true,
+				'data' => null,
+				'success_message' => null,
+				'error_message' => "The Foto field is required."
+			];
+			
+			return $this->output
+			->set_content_type('application/json')
+			->set_status_header(400)
+			->set_output(json_encode($response));
+		}
 
 	}
 
@@ -146,8 +226,43 @@ class Mobil extends CI_Controller {
 			'cc' => $this->input->post('cc'),
 			'tahun' => $this->input->post('tahun'),
 			'merk_id' => $this->input->post('merk_id'),
-			'foto' => $this->input->post('foto'),
 		];
+
+		$filename= $_FILES["foto"];
+		$file_ext = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
+		
+		if ($filename['name'] != null) {
+
+			// $file_ext = pathinfo($filename,PATHINFO_EXTENSION);
+			$config['upload_path']          = './assets/public/dashboard/mobil/';
+			$config['allowed_types']        = 'gif|jpg|jpeg|png';
+			$config['encrypt_name'] = TRUE;
+			
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('foto')) {
+				// saat gagal, tampilkan pesan erro
+				$response = [
+					'status' => 400,
+					'response' => 'fail',
+					'success' => false,
+					'error' => true,
+					'data' => null,
+					'success_message' => null,
+					'error_message' => $this->upload->display_errors()
+				];
+				
+				return $this->output
+				->set_content_type('application/json')
+				->set_status_header(400)
+				->set_output(json_encode($response));
+			} 
+			else {
+				// saat berhasil ambil datanya 
+				$uploaded_data = $this->upload->data('file_name');
+				$data['foto'] = $uploaded_data;
+			}
+		}
 
 		$this->MobilModel->update($data, $id);
 

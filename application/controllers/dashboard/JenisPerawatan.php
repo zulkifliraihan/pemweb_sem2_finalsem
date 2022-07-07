@@ -10,6 +10,11 @@ class JenisPerawatan extends CI_Controller {
 		parent::__construct();
 		$this->load->library(['form_validation']);
 		$this->load->model('JenisPerawatanModel');
+
+		$this->load->model('AuthModel');
+		if(!$this->AuthModel->current_user()){
+			redirect('auth/login');
+		}
 	}
 
 	public function index()

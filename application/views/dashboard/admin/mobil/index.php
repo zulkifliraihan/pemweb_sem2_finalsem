@@ -13,12 +13,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">Data Users</h1>
+					<h1 class="m-0">Data Mobil</h1>
 				</div><!-- /.col -->
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Data Users</li>
+						<li class="breadcrumb-item active">Data Mobil</li>
 					</ol>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -37,7 +37,7 @@
 							<button type="button" class="btn btn-info btn-sm add-data" id="add-data" data-toggle="modal"
 								data-target="#modal-create">
 								<i class="fas fa-plus mr-2"></i>
-								Add User
+								Add Mobil
 							</button>
 						</div>
 						<div class="card-body">
@@ -45,24 +45,36 @@
 								<thead>
 									<tr>
 										<th>No</th>
-										<th>Nama</th>
+										<th>Merk</th>
+										<th>Produk</th>
+										<th>Nopol</th>
+										<th>Warna</th>
+										<th>Biaya Sewa</th>
+										<th>CC</th>
+										<th>Tahun</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?= $no = 1; foreach ($jenisperawatan as $value): ?>
+									<?= $no = 1; foreach ($data as $value): ?>
 									<tr>
 										<td><?= $no; ?></td>
-										<td><?= $value->nama;  ?></td>
+										<td><?= $value['merk'];  ?></td>
+										<td><?= $value['produk'];  ?></td>
+										<td><?= $value['nopol'];  ?></td>
+										<td><?= $value['warna'];  ?></td>
+										<td>Rp. <?= $value['biaya_sewa'];  ?></td>
+										<td><?= $value['cc'];  ?></td>
+										<td><?= $value['tahun'];  ?></td>
 										<td>
 											<button type="button" class="btn btn-info btn-sm edit-data" id="edit-data"
-												data-id="<?= $value->id ?>"
-												data-url="<?= site_url('dashboard/jenisperawatan/edit/:did'); ?>">
+												data-id="<?= $value['id'] ?>"
+												data-url="<?= site_url('dashboard/mobil/edit/:did'); ?>">
 												Edit
 											</button>
 											<button type="button" class="btn btn-danger btn-sm delete-data"
-												id="delete-data" data-id="<?= $value->id ?>"
-												data-url="<?= site_url('dashboard/jenisperawatan/delete/:did'); ?>">
+												id="delete-data" data-id="<?= $value['id'] ?>"
+												data-url="<?= site_url('dashboard/mobil/delete/:did'); ?>">
 												Delete
 											</button>
 										</td>
@@ -87,7 +99,7 @@
 <!-- /.content-wrapper -->
 
 <?php
-	include './application/views/dashboard/admin/jenisperawatan/modal.php';
+	include './application/views/dashboard/admin/mobil/modal.php';
 	include './application/views/dashboard/components/footer.php';
 ?>
 
@@ -125,7 +137,6 @@
 			url: $(this).attr("action"),
 			method: "POST",
 			data: new FormData(this),
-			dataType: 'JSON',
 			contentType: false,
 			cache: false,
 			processData: false,
@@ -173,13 +184,19 @@
 
 				Swal.close();
 				
-				let jenisperawatan = response.data;
+				let mobil = response.data;
 
 				let formAction = $('#edit-data-form').attr('action');
-				formAction = formAction.replace(':did', jenisperawatan.id);
+				formAction = formAction.replace(':did', mobil.id);
 				$('#edit-data-form').attr('action', formAction);
 
-				$('#nama-edit').val(jenisperawatan.nama);
+				$('#merk_id-edit').val(mobil.merk_id);
+				$('#nopol-edit').val(mobil.nopol);
+				$('#warna-edit').val(mobil.warna);
+				$('#biaya_sewa-edit').val(mobil.biaya_sewa);
+				$('#deskripsi-edit').val(mobil.deskripsi);
+				$('#cc-edit').val(mobil.cc);
+				$('#tahun-edit').val(mobil.tahun);
 				
 				$("#modal-edit").modal('show');
 

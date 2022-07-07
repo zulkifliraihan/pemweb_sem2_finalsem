@@ -50,6 +50,20 @@ class MobilModel extends CI_Model {
 		return $delete;
 	}
 
+	public function relationMerk($id)
+	{
+		$queryMobil = '';
+		$merk = $this->db->get($this->table)->result();
+
+		
+		$this->db->where('id', $id);
+		$query = $this->db->get('merk');
+		$data = $query->row();
+
+		return $data;
+
+	}
+
 }
 
 /* End of file MobilModel.php */

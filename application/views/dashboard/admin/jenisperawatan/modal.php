@@ -2,7 +2,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Create Merk</h4>
+				<h4 class="modal-title">Create Jenis Perawatan</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -11,7 +11,7 @@
 				<form id="create-data-form" method="POST" action="<?= site_url('dashboard/jenisperawatan/store') ?>">
 					<div class="form-group">
 						<label for="nama">Nama</label>
-						<input type="text" class="form-control" id="nama" name="nama" placeholder="Enter Nama Merk">
+						<input type="text" class="form-control" id="nama" name="nama" placeholder="Enter Nama Jenis Perawatan">
 					</div>
 			</div>
 			<div class="modal-footer justify-content-between">
@@ -29,7 +29,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Edit Merk</h4>
+				<h4 class="modal-title">Edit Jenis Perawatan</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -38,7 +38,7 @@
 				<form id="edit-data-form" method="POST" action="<?= site_url('dashboard/jenisperawatan/update/:did') ?>">
 					<div class="form-group">
 						<label for="nama-edit">Nama</label>
-						<input type="text" class="form-control" id="nama-edit" name="nama" placeholder="Enter Nama Merk">
+						<input type="text" class="form-control" id="nama-edit" name="nama" placeholder="Nama Jenis Perawatan">
 					</div>
 			</div>
 			<div class="modal-footer justify-content-between">
