@@ -33,6 +33,8 @@ class Mobil extends CI_Controller {
 			$item['produk'] = $merk->produk;
 			$item['nopol'] = $value->nopol;
 			$item['warna'] = $value->warna;
+			$item['kapasitas'] = $value->kapasitas;
+			$item['bagasi'] = $value->bagasi;
 			$item['biaya_sewa'] = number_format($value->biaya_sewa,0, ',', '.');
 			$item['cc'] = $value->cc;
 			$item['tahun'] = $value->tahun;
@@ -53,12 +55,13 @@ class Mobil extends CI_Controller {
 	{
 		$this->form_validation->set_rules('nopol', 'Nopol', 'required');
 		$this->form_validation->set_rules('warna', 'Warna', 'required');
+		$this->form_validation->set_rules('kapasitas', 'Kapasitas', 'required');
+		$this->form_validation->set_rules('bagasi', 'Bagasi', 'required');
 		$this->form_validation->set_rules('biaya_sewa', 'Biaya_sewa', 'required');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
 		$this->form_validation->set_rules('cc', 'Cc', 'required');
 		$this->form_validation->set_rules('tahun', 'Tahun', 'required');
 		$this->form_validation->set_rules('merk_id', 'Merk_id', 'required');
-		// $this->form_validation->set_rules('foto', 'Foto', 'required');
 
 		if ($this->form_validation->run()  == false) {
 			$response = [
@@ -112,6 +115,8 @@ class Mobil extends CI_Controller {
 				$data = [
 					'nopol' => $this->input->post('nopol'),
 					'warna' => $this->input->post('warna'),
+					'kapasitas' => $this->input->post('kapasitas'),
+					'bagasi' => $this->input->post('bagasi'),
 					'biaya_sewa' => $this->input->post('biaya_sewa'),
 					'deskripsi' => $this->input->post('deskripsi'),
 					'cc' => $this->input->post('cc'),
@@ -195,6 +200,8 @@ class Mobil extends CI_Controller {
 	{
 		$this->form_validation->set_rules('nopol', 'Nopol', 'required');
 		$this->form_validation->set_rules('warna', 'Warna', 'required');
+		$this->form_validation->set_rules('kapasitas', 'Kapasitas', 'required');
+		$this->form_validation->set_rules('bagasi', 'Bagasi', 'required');
 		$this->form_validation->set_rules('biaya_sewa', 'Biaya_sewa', 'required');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
 		$this->form_validation->set_rules('cc', 'Cc', 'required');
@@ -221,6 +228,8 @@ class Mobil extends CI_Controller {
 		$data = [
 			'nopol' => $this->input->post('nopol'),
 			'warna' => $this->input->post('warna'),
+			'kapasitas' => $this->input->post('kapasitas'),
+			'bagasi' => $this->input->post('bagasi'),
 			'biaya_sewa' => $this->input->post('biaya_sewa'),
 			'deskripsi' => $this->input->post('deskripsi'),
 			'cc' => $this->input->post('cc'),

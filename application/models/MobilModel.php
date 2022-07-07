@@ -55,7 +55,7 @@ class MobilModel extends CI_Model {
 		$queryMobil = '';
 		$merk = $this->db->get($this->table)->result();
 
-		
+
 		$this->db->where('id', $id);
 		$query = $this->db->get('merk');
 		$data = $query->row();
@@ -63,6 +63,25 @@ class MobilModel extends CI_Model {
 		return $data;
 
 	}
+
+	public function get_all_data()
+    {
+        $query = $this->db->get($this->table);
+
+        return $query->result();
+    }
+
+    public function get_by_id($id)
+    {
+        $query = $this->db->get_where($this->table, ['id' => $id]);
+        return $query->row();
+    }
+
+    public function get_by_merk_id($merk_id)
+    {
+        $query = $this->db->get_where($this->table, ['merk_id' => $merk_id]);
+        return $query->result();
+    }
 
 }
 

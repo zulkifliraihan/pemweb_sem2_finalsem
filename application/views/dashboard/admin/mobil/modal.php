@@ -31,6 +31,16 @@
 						<input type="text" class="form-control" id="warna" name="warna" placeholder="Enter Warna Mobil">
 					</div>
 					<div class="form-group">
+						<label for="kapasitas">Kapasitas</label>
+						<input type="number" class="form-control" id="kapasitas" name="kapasitas"
+							placeholder="Enter Kapasitas Mobil">
+					</div>
+					<div class="form-group">
+						<label for="bagasi">Bagasi</label>
+						<input type="number" class="form-control" id="bagasi" name="bagasi"
+							placeholder="Enter Bagasi Mobil">
+					</div>
+					<div class="form-group">
 						<label for="biaya_sewa">Biaya Sewa</label>
 						<input type="number" class="form-control" id="biaya_sewa" name="biaya_sewa"
 							placeholder="Enter Biaya Sewa Mobil">
@@ -95,6 +105,16 @@
 					<div class="form-group">
 						<label for="warna-edit">Warna</label>
 						<input type="text" class="form-control" id="warna-edit" name="warna" placeholder="Enter Warna Mobil">
+					</div>
+					<div class="form-group">
+						<label for="kapasitas-edit">Kapasitas</label>
+						<input type="number" class="form-control" id="kapasitas-edit" name="kapasitas"
+							placeholder="Enter Kapasitas Mobil">
+					</div>
+					<div class="form-group">
+						<label for="bagasi-edit">Bagasi</label>
+						<input type="number" class="form-control" id="bagasi-edit" name="bagasi"
+							placeholder="Enter Bagasi Mobil">
 					</div>
 					<div class="form-group">
 						<label for="biaya_sewa-edit">Biaya Sewa</label>

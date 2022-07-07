@@ -1,76 +1,70 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Log in</title>
-
-	<!-- Google Font: Source Sans Pro -->
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="<?= base_url('assets/dashboard') ?>/plugins/fontawesome-free/css/all.min.css">
-	<!-- icheck bootstrap -->
-	<link rel="stylesheet" href="<?= base_url('assets/dashboard') ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="<?= base_url('assets/dashboard') ?>/dist/css/adminlte.min.css">
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="<?= base_url('assets/assets_login/css/login.css'); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
-<body class="hold-transition login-page">
-	<div class="login-box">
-		<div class="login-logo">
-			<a href="<?= base_url('assets/dashboard') ?>/index2.html"><b>Admin</b>LTE</a>
-		</div>
-		<!-- /.login-logo -->
-		<div class="card">
-			<div class="card-body login-card-body">
-				<p class="login-box-msg">Sign in to start your session</p>
+<body>
+    <div id="back">
+        <div class="backRight"></div>
+        <div class="backLeft"></div>
+    </div>
 
-				<form id="login-form" action="<?= site_url('auth/check') ?>" method="post">
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" id="username" name="username" placeholder="Username">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-envelope"></span>
-							</div>
-						</div>
-					</div>
-					<div class="input-group mb-3">
-						<input type="password" class="form-control" id="password" name="password" placeholder="Password">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-lock"></span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<!-- /.col -->
-						<div class="col-12">
-							<button type="submit" class="btn btn-primary btn-block">Sign In</button>
-						</div>
-						<!-- /.col -->
-					</div>
-				</form>
-				<p class="mb-0">
-					<a href="register.html" class="text-center">Register a new membership</a>
-				</p>
-			</div>
-			<!-- /.login-card-body -->
-		</div>
-	</div>
-	<!-- /.login-box -->
-
-	<!-- jQuery -->
-	<script src="<?= base_url('assets/dashboard') ?>/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script src="<?= base_url('assets/dashboard') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="<?= base_url('assets/dashboard') ?>/dist/js/adminlte.min.js"></script>
+    <div id="slideBox">
+        <div class="topLayer">
+            <div class="left">
+                <div class="content-register h-50">
+                    <!-- Pesan -->
+                    <?php if ($this->session->flashdata('message', 'message_login_error')) : ?>
+                        <div class="alert alert-danger close" role="alert">
+                            <?= $this->session->flashdata('message', 'message_login_error'); ?>
+                        </div>
+                    <?php endif; ?>
+                    <h2 class="text-success">Sign Up</h2>
+                    <form id="register-form" action="<?= base_url('auth/register') ?>"  method="post">
+                        <div class="form-group">
+                            <input name="email" type="email" placeholder="Email" />
+                            <input name="username" type="text" placeholder="Username" />
+                            <input name="password" type="password" placeholder="Password" />
+                            <input name="password2" type="password" placeholder="Confirm Password" />
+                        </div>
+                        <input class="btn btn-success mt-2" type="submit" value="Sign Up">
+                        <br>
+                        <p class="text-center mt-5 text-white-50" style="font-size: smaller;">-- Already Have Account? Login Here! --</p>
+                        <button id="goLeft" class="btn btn-outline-info w-100" type="button">Login</button>
+                    </form>
+                </div>
+            </div>
+            <div class="right">
+                <div class="content h-50">
+                    <h2>Login</h2>
+                    <form id="login-form" action="<?= site_url('auth/check') ?>" method="post">
+                        <div class="form-group">
+                            <input type="text" id="username" name="username" placeholder="Username" />
+                            <input type="password" id="password" name="password" placeholder="Password" />
+                        </div>
+                        <input class="btn btn-info mt-2" id="login" type="submit" value="Login">
+                        <br>
+                        <p class="text-white-50 mt-5 text-center" style="font-size: smaller;">-- Don't Have Account? Register Here! --</p>
+                        <button id="goRight" class="btn btn-outline-success w-100" type="button">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url('assets/assets_login/js/script.js'); ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script>
-	// Start : Submit Form Create
+	// Start : Submit Form Login
 	$('#login-form').on('submit', function (event) {
 
 		$.ajaxSetup({
@@ -121,8 +115,62 @@
 			}
 		});
 	});
-	// End : Submit Form Create
+	// End : Submit Form Login
+
+	// Start : Submit Form Register
+	$('#register-form').on('submit', function (event) {
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		event.preventDefault();
+
+		Swal.fire({
+			text: "Mohon menunggu..."
+		});
+
+		Swal.showLoading();
+
+		$.ajax({
+			url: $(this).attr("action"),
+			method: "POST",
+			data: new FormData(this),
+			dataType: 'JSON',
+			contentType: false,
+			cache: false,
+			processData: false,
+			success: (data) => {
+				if (data.status == "200" && data.response == "success" && data.success == true) {
+					Swal.close();
+					Swal.fire({
+						icon: 'success',
+						title: 'Sukses',
+						text: data.success_message,
+					});
+
+					setTimeout(function(){
+						location.reload();
+					}, 1500);
+				}
+			},
+			error: (data) => {
+				if (data.responseJSON.status == "400" && data.responseJSON.response == "fail" && data.responseJSON.error == true) {
+					Swal.fire({
+						title: 'Perhatian!',
+						html: data.responseJSON.error_message,
+						icon: 'error',
+						confirmButtonText: 'Oke'
+					});
+				}
+			}
+		});
+	});
+	// End : Submit Form Register
 	</script>
 </body>
 
 </html>
+

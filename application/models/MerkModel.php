@@ -50,6 +50,19 @@ class MerkModel extends CI_Model {
 		return $delete;
 	}
 
+	public function get_all_data()
+    {
+        $query = $this->db->get($this->table);
+
+        return $query->result();
+    }
+
+    public function get_by_id($id)
+    {
+        $query = $this->db->get_where($this->table, ['id' => $id]);
+        return $query->row();
+    }
+
 }
 
 /* End of file MerkModel.php */

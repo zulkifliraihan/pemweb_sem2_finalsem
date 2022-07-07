@@ -49,6 +49,7 @@
 										<th>Produk</th>
 										<th>Nopol</th>
 										<th>Warna</th>
+										<th>Kapasitas & Bagasi</th>
 										<th>Biaya Sewa</th>
 										<th>CC</th>
 										<th>Tahun</th>
@@ -63,6 +64,11 @@
 										<td><?= $value['produk'];  ?></td>
 										<td><?= $value['nopol'];  ?></td>
 										<td><?= $value['warna'];  ?></td>
+										<td>
+											<?= $value['kapasitas'];  ?>
+											&
+											<?= $value['bagasi'];  ?>
+										</td>
 										<td>Rp. <?= $value['biaya_sewa'];  ?></td>
 										<td><?= $value['cc'];  ?></td>
 										<td><?= $value['tahun'];  ?></td>
@@ -193,6 +199,8 @@
 				$('#merk_id-edit').val(mobil.merk_id);
 				$('#nopol-edit').val(mobil.nopol);
 				$('#warna-edit').val(mobil.warna);
+				$('#kapasitas-edit').val(mobil.kapasitas);
+				$('#bagasi-edit').val(mobil.bagasi);
 				$('#biaya_sewa-edit').val(mobil.biaya_sewa);
 				$('#deskripsi-edit').val(mobil.deskripsi);
 				$('#cc-edit').val(mobil.cc);
