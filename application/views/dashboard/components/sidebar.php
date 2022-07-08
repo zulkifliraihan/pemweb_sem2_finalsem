@@ -96,6 +96,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?= site_url('auth/logout') ?>" class="nav-link">
+							<i class="nav-icon fas fa-book"></i>
+							<p>
+                Log Out
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

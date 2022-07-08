@@ -101,6 +101,8 @@ class Auth extends CI_Controller {
 	{
 		$this->load->model('AuthModel');
 		$this->AuthModel->logout();
+		$this->session->unset_userdata('username');
+        $this->session->unset_userdata('role_id');
 		redirect(site_url());
 	}
 
